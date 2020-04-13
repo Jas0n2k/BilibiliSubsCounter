@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bilibili Fans Counter</title>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Bilibili Counter"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bilibili Counter">
+  <meta content="telephone=no" name="format-detection" />
+  <meta content="email=no" name="format-detection" />
+  <script src="/Resources/JavaScript/iNobounce.js"></script>
+  <script src="/Resources/JavaScript/odometer.js"></script>
+  <link rel="stylesheet"
+    href="Resources/StyleSheet/odometer-theme-default.css" />
+
+  <style> 
+    @font-face {
+      font-family: 'NotoSans-B';
+      src: url('NotoSans-Bold.ttf');
+    }
+
+    html,
+    body {
+      margin:0;
+      font-family: 'NotoSans-B';
+      color: #000000;
+      display: block;
+      height: 98vh;
+      overflow: hidden;
+    }   
+
+    #block1 {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+      }
+    
+    #logobar {
+      margin: 1% auto 0;
+      width: 100%;
+    }
+    #logo {
+      width: 20vmin;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    #logo img {
+      height: auto;
+      width: 100%;
+    }
+
+    #up_infor {
+      display: flex;
+      align-items: center;
+    }
+
+    #avatar {
+      border-radius: 50%;
+      border:2px solid black;
+      max-height: 100%;
+      flex:none;
+    }
+    #name {
+      color: #000000;
+      font-size: 15vmin;
+      flex:none;
+    }
+
+    #block2 {
+        display: flex; justify-content:center;
+      }
+
+    #fans {
+      color: #000000;
+      flex-wrap: nowrap;
+      font-size: 22vmin;
+    }
+
+    @media screen and (orientation: landscape){
+      #block1 {
+        height:50%;
+      }
+
+      #block2 {
+        height:50%;
+      }
+
+      #up_infor {
+        flex-direction: row;
+        flex:none;
+        justify-content: center;
+        height:30vh;
+      }
+
+      #avatar{
+        height: 80%;
+      }
+
+      #space {
+        width:3%;
+        flex:none;
+      }
+
+    }
+
+    @media screen and (orientation: portrait){
+      #block1 {
+        height:50%;
+      }
+
+      #block2 {
+        height:50%;
+      }
+      #up_infor {
+        flex-direction: column;
+        align-items:center;
+      }
+
+      #avatar{
+        width:20%;
+      }
+
+      #space{
+        width: 0;
+        height: 0;
+      }
+    }
+
+    #script {
+      display: none;
+    }
+    
+
+  </style>
+</head>
+
+<body>
+  <div id="block1">
+    <div id="logobar">
+      <div id="logo">
+       <a href="https://bilibili.com/"><img src="bilibilil.png" alt="bilibili"></a>
+      </div>
+      <hr>
+   </div>
+   <div id="up_infor">
+      <img id="avatar" alt="up_name">
+      <div id="space"> </div>
+      <div id="name"></div>
+   </div>
+  </div>
+  <div id="block2">
+   <div id="fans" class="myOdometer"></div>
+  </div>
+  <div id="script"></div>
+<script>
+
+    var userID = '262453663';
+    var duration = 3000;
+    const elAvatar = document.getElementById('avatar')
+    const elFans = document.getElementById('fans')
+    const elScript = document.getElementById('script')
+    const elSep = document.getElementById('sep')
+    const elName = document.getElementById('name')
+    const flagc = document.getElementById('flagc')
+
+    var flag=0
+    const showFansCount = function (json) {
+      elFans.innerHTML = json.data.follower
+      if(flag<1)
+      {
+        elAvatar.src = json.data.card.face.replace(/^http:/, 'https:')
+        elName.innerHTML = json.data.card.name;
+        changeIcon();
+      }
+      flag++;
+    }
+
+    var icon
+    const changeIcon = function () {
+    icon = document.createElement('link');
+    icon.href = elAvatar.src;
+    icon.rel ="apple-touch-icon";
+    icon.sizes = "114x114";
+    document.getElementsByTagName('head')[0].appendChild(icon);
+  }
+
+    var elScriptChild
+    const appendScript = function (father) { 
+      const url = "https://jsonp.afeld.me/?callback=showFansCount&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Fweb-interface%2Fcard%3Fmid%3D" + userID + '&spam=' + Number(new Date)
+      elScriptChild = document.createElement('script')
+      elScriptChild.setAttribute('src', url)
+      elScriptChild.setAttribute('type', "text/javascript")
+      elScriptChild.setAttribute('referrerpolicy',"no-referrer")
+      father.appendChild(elScriptChild)
+    }
+    appendScript(elScript)
+
+    const getData = function (father) {
+      father.removeChild(father.childNodes[0])
+      appendScript(father)
+    }
+    window.setInterval("getData(elScript)",duration);
+
+    const subodometer = document.querySelector(".myOdometer");
+    const odometer = new Odometer({
+      el: subodometer,
+      format:',ddd',
+      theme: 'default',
+      duration: 200
+    })
+  </script>
+  </body>
+</html>
