@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Bilibili Fans Counter</title>
   <meta charset="UTF-8">
@@ -22,17 +21,17 @@
   <style> 
     @font-face {
       font-family: 'NotoSans-B';
-      src: url('NotoSans-Bold.ttf');
+      src: url("Resources/Fonts/NotoSans-Bold.ttf");
     }
 
     html,
     body {
       margin:0;
       font-family: 'NotoSans-B';
-      color: #000000;
       display: block;
       height: 98vh;
       overflow: hidden;
+      background-color: #ffffff;
     }   
     
     #block1 {
@@ -42,18 +41,24 @@
       }
     
     #logobar {
-      margin: 1% auto 0;
+      margin: 0 auto 3vh;
       width: 100%;
+      box-shadow: 0 1px 15px grey;
+      height: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: none;
     }
     #logo {
-      width: 20vmin;
-      height: auto;
-      margin: 0 auto;
+      height: 70%;
+      width:min-content;
+      text-align: center;
     }
 
-    #logo img {
-      height: auto;
-      width: 100%;
+    #logo img{
+      height:100%;
+      width: auto;
     }
 
     #up_infor {
@@ -133,11 +138,32 @@
       }
     }
 
+    
+    @media (prefers-color-scheme: dark) {
+      html, body{
+        background-color: #121212;
+      }
+    
+      #name {
+      color: #ffffff;
+      }
+      #fans {
+      color: #ffffff;
+      }
+      #logobar {
+        background-color:#000000;
+        box-shadow: 0 2px 25px dimgray;
+      }
+      #avatar{
+        border:2px solid white;
+        filter: brightness(80%);
+    }
+    }
+
+
     #script {
       display: none;
     }
-    
-
   </style>
 </head>
 
@@ -145,9 +171,10 @@
   <div id="block1">
     <div id="logobar">
       <div id="logo">
-       <a href="https://bilibili.com/"><img src="Resources/Logo/bilibili.png" alt="bilibili"></a>
-      </div>
-      <hr>
+       <a href="https://bilibili.com/">
+        <img src="Resources/Logo/bilibili.png" alt="bilibili">
+      </a>
+    </div>
    </div>
    <div id="up_infor">
       <img id="avatar" alt="up_name">
