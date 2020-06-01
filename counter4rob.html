@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Bilibili Fans Counter</title>
   <meta charset="UTF-8">
@@ -8,39 +7,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Bilibili Counter" />
+  <meta name="application-name" content="Bilibili Counter"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Bilibili Counter">
   <meta content="telephone=no" name="format-detection" />
   <meta content="email=no" name="format-detection" />
-  <script src="/js/iNobounce.js"></script>
-  <script src="/js/odometer.min.js"></script>
-  <link rel="stylesheet" href="/css/odometer-theme-default.css" />
+  <script src="Resources/JavaScript/iNobounce.js"></script>
+  <script src="Resources/JavaScript/odometer.js"></script>
+  <link rel="stylesheet"
+    href="Resources/StyleSheet/odometer-theme-default.css" />
 
-  <style>
+  <style> 
     @font-face {
       font-family: 'NotoSans-B';
-      src: url("/fonts/NotoSans-Bold.ttf");
+      src: url("Resources/Fonts/NotoSans-Bold.ttf");
     }
 
     html,
     body {
-      margin: 0;
+      margin:0;
       font-family: 'NotoSans-B';
       display: block;
       height: 100vh;
       overflow: hidden;
       background-color: #ffffff;
-    }
-
+    }   
+    
     #block1 {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: space-between;
-      height: 50%;
-    }
-
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        height:50%;
+      }
+    
     #logobar {
       margin: 0 auto 3vh;
       width: 100%;
@@ -48,16 +48,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex: none;
     }
-
     #logo {
-      height: 100%;
-      display: flex;
-      align-items: center;
+      height: 70%;
+      width:min-content;
+      text-align: center;
     }
 
-    #logo img {
-      height: 70%;
+    #logo img{
+      height:100%;
       width: auto;
     }
 
@@ -68,22 +68,20 @@
 
     #avatar {
       border-radius: 50%;
-      border: 2px solid black;
+      border:2px solid black;
       max-height: 100%;
-      flex: none;
+      flex:none;
     }
-
     #name {
       color: #000000;
       font-size: 15vmin;
-      flex: none;
+      flex:none;
     }
 
     #block2 {
-      display: flex;
-      justify-content: center;
-      height: 50%;
-    }
+        display: flex; justify-content:center;
+        height:50%;
+      }
 
     #fans {
       color: #000000;
@@ -91,75 +89,70 @@
       font-size: 22vmin;
     }
 
-    @media screen and (orientation: landscape) {
+    @media screen and (orientation: landscape){
 
       #logobar {
-        height: 15vh;
+        height:15vh;
       }
 
       #up_infor {
         flex-direction: row;
-        flex: none;
+        flex:none;
         justify-content: center;
-        height: 30vh;
+        height:30vh;
       }
 
-      #avatar {
+      #avatar{
         height: 80%;
       }
 
       #space {
-        width: 3%;
-        flex: none;
+        width:3%;
+        flex:none;
       }
 
     }
 
-    @media screen and (orientation: portrait) {
+    @media screen and (orientation: portrait){
       #logobar {
-        height: 10vh;
+        height:10vh;
       }
 
       #up_infor {
         flex-direction: column;
-        align-items: center;
+        align-items:center;
       }
 
-      #avatar {
-        width: 20%;
+      #avatar{
+        width:20%;
       }
 
-      #space {
+      #space{
         width: 0;
         height: 0;
       }
     }
 
-
+    
     @media (prefers-color-scheme: dark) {
-
-      html,
-      body {
+      html, body{
         background-color: #121212;
       }
-
+    
       #name {
-        color: #ffffff;
+      color: #ffffff;
       }
-
       #fans {
-        color: #ffffff;
+      color: #ffffff;
       }
-
       #logobar {
-        background-color: #000000;
+        background-color:#000000;
         box-shadow: 0 2px 25px dimgray;
       }
-
-      #avatar {
-        border: 2px solid white;
+      #avatar{
+        border:2px solid white;
         filter: brightness(80%);
-      }
+    }
     }
 
 
@@ -173,23 +166,24 @@
   <div id="block1">
     <div id="logobar">
       <div id="logo">
-        <img src="Resources/Logo/bilibili.svg" alt="bilibili">
-      </div>
+       <a href="https://bilibili.com/">
+        <img src="Resources/Logo/bilibili.png" alt="bilibili">
+      </a>
     </div>
-    <div id="up_infor">
+   </div>
+   <div id="up_infor">
       <img id="avatar" alt="up_name">
       <div id="space"> </div>
       <div id="name"></div>
-    </div>
+   </div>
   </div>
   <div id="block2">
-    <div id="fans" class="myOdometer"></div>
+   <div id="fans" class="myOdometer"></div>
   </div>
   <div id="script"></div>
-  <script>
+<script>
 
-    var userID="534952028";
-
+    var userID = '534952028';
     var duration = 3000;
     const elAvatar = document.getElementById('avatar')
     const elFans = document.getElementById('fans')
@@ -198,10 +192,11 @@
     const elName = document.getElementById('name')
     const flagc = document.getElementById('flagc')
 
-    var flag = 0
+    var flag=0
     const showFansCount = function (json) {
       elFans.innerHTML = json.data.follower
-      if (flag < 1) {
+      if(flag<1)
+      {
         elAvatar.src = json.data.card.face.replace(/^http:/, 'https:')
         elName.innerHTML = json.data.card.name;
         changeIcon();
@@ -211,38 +206,37 @@
 
     var icon
     const changeIcon = function () {
-      icon = document.createElement('link');
-      icon.href = elAvatar.src;
-      icon.rel = "apple-touch-icon";
-      icon.sizes = "114x114";
-      document.getElementsByTagName('head')[0].appendChild(icon);
-    }
+    icon = document.createElement('link');
+    icon.href = elAvatar.src;
+    icon.rel ="apple-touch-icon";
+    icon.sizes = "114x114";
+    document.getElementsByTagName('head')[0].appendChild(icon);
+  }
 
     var elScriptChild
-    const appendScript = function (father) {
+    const appendScript = function (father) { 
       const url = "https://jsonp.afeld.me/?callback=showFansCount&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Fweb-interface%2Fcard%3Fmid%3D" + userID + '&spam=' + Number(new Date)
       elScriptChild = document.createElement('script')
       elScriptChild.setAttribute('src', url)
       elScriptChild.setAttribute('type', "text/javascript")
-      elScriptChild.setAttribute('referrerpolicy', "no-referrer")
+      elScriptChild.setAttribute('referrerpolicy',"no-referrer")
       father.appendChild(elScriptChild)
     }
-    appendScript(elScript);
+    appendScript(elScript)
 
     const getData = function (father) {
       father.removeChild(father.childNodes[0])
       appendScript(father)
     }
-    window.setInterval("getData(elScript)", duration);
+    window.setInterval("getData(elScript)",duration);
 
     const subodometer = document.querySelector(".myOdometer");
     const odometer = new Odometer({
       el: subodometer,
-      format: ',ddd',
+      format:',ddd',
       theme: 'default',
       duration: 200
     })
   </script>
-</body>
-
+  </body>
 </html>
