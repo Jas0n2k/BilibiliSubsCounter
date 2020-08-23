@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bilibili Fans Counter</title>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Bilibili Counter" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bilibili Counter">
+  <meta content="telephone=no" name="format-detection" />
+  <meta content="email=no" name="format-detection" />
+  <script src="/js/iNobounce.js"></script>
+  <script src="/js/odometer.min.js"></script>
+  <script src="/js/UIDquery.js"></script>
+  <link rel="stylesheet" href="/css/odometer-theme-default.css" />
+
+  <style>
+    @font-face {
+      font-family: 'NotoSans-B';
+      src: url("/fonts/NotoSans-Bold.ttf");
+    }
+
+    html,
+    body {
+      margin: 0;
+      font-family: 'NotoSans-B';
+      display: block;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    #block1 {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+      height: 50%;
+    }
+
+    #logobar {
+      margin: 0 auto 3vh;
+      width: 100%;
+      box-shadow: 0 1px 15px grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #logo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    #logo img {
+      height: 70%;
+      width: auto;
+    }
+
+    #up_infor {
+      display: flex;
+      align-items: center;
+    }
+
+    #avatar {
+      border-radius: 50%;
+      border: 2px solid black;
+      max-height: 100%;
+      flex: none;
+    }
+
+    #name {
+      color: #000000;
+      font-size: 15vmin;
+      flex: none;
+    }
+
+    #block2 {
+      display: flex;
+      justify-content: center;
+      height: 50%;
+    }
+
+    #fans {
+      color: #000000;
+      flex-wrap: nowrap;
+      font-size: 22vmin;
+    }
+
+    @media screen and (orientation: landscape) {
+
+      #logobar {
+        height: 15vh;
+      }
+
+      #up_infor {
+        flex-direction: row;
+        flex: none;
+        justify-content: center;
+        height: 30vh;
+      }
+
+      #avatar {
+        height: 80%;
+      }
+
+      #space {
+        width: 3%;
+        flex: none;
+      }
+
+    }
+
+    @media screen and (orientation: portrait) {
+      #logobar {
+        height: 10vh;
+      }
+
+      #up_infor {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #avatar {
+        width: 20%;
+      }
+
+      #space {
+        width: 0;
+        height: 0;
+      }
+    }
+
+
+    @media (prefers-color-scheme: dark) {
+
+      html,
+      body {
+        background-color: #121212;
+      }
+
+      #name {
+        color: #ffffff;
+      }
+
+      #fans {
+        color: #ffffff;
+      }
+
+      #logobar {
+        background-color: #000000;
+        box-shadow: 0 2px 25px dimgray;
+      }
+
+      #avatar {
+        border: 2px solid white;
+        filter: brightness(80%);
+      }
+    }
+    #script {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="block1">
+    <div id="logobar">
+      <div id="logo">
+        <img src="Resources/Logo/bilibili.svg" alt="bilibili">
+      </div>
+    </div>
+    <div id="up_infor">
+      <img id="avatar" alt="up_name">
+      <div id="space"> </div>
+      <div id="name"></div>
+    </div>
+  </div>
+  <div id="block2">
+    <div id="fans" class="myOdometer"></div>
+  </div>
+  <div id="script"></div>
+</body>
+
+</html>
