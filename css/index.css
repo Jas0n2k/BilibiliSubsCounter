@@ -1,0 +1,41 @@
+.custom-main-color {
+    background-color: #23ade5;
+}
+
+#title {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+}
+
+#logo {
+    height: auto;
+    width: 60px;
+    fill: #FFFFFF;
+    overflow: hidden;
+}
+
+#container {
+    padding-top: 3vh;
+}
+
+#UID {
+    display: flex;
+    flex-direction: column;
+}
+
+.arow {
+    width: 100%;
+    height: fit-content;
+}
+
+#IDfield {
+    width: 80%;
+}
+
+#textfield {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
