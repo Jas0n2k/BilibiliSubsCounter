@@ -66,14 +66,14 @@
   <div class="mdui-container" id="container">
     <div id="UID">
       <div class="arow">输入up主UID</div>
-      <form id="textfield" action="counter.html" method="GET" enctype="text/plain">
+      <form id="textfield" action="/counter.html" method="GET" enctype="text/plain">
         <div class="mdui-textfield mdui-textfield-floating-label" id="IDfield">
           <label class="mdui-textfield-label">UID</label>
-          <input class="mdui-textfield-input" name="uid" type="text" pattern="^[0-9]*$" maxlength="11" />
+          <input class="mdui-textfield-input" name="uid" type="text" pattern="^[0-9]*$" maxlength="11" required />
           <div class="mdui-textfield-error">UID格式错误</div>
         </div>
         <div class="mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">&#xe14f;</i></div>
-        <div class="mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">&#xe31b;</i></div>
+        <div class="mdui-btn-icon mdui-ripple" id="submit"><i class="mdui-icon material-icons">&#xe31b;</i></div>
       </form>
     </div>
   </div>
