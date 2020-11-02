@@ -14,7 +14,7 @@
   <script src="js/index.js"></script>
 </head>
 
-<body class="mdui-appbar-with-toolbar mdui-theme-layout-auto">
+<body class="mdui-appbar-with-toolbar mdui-theme-accent-cyan mdui-theme-layout-auto" >
   <div class="mdui-appbar mdui-appbar-fixed">
     <div class="mdui-toolbar custom-main-color" id="toolbar">
       <a class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#drawer'}">
@@ -69,8 +69,8 @@
       <form id="textfield" action="/counter.html" method="GET" enctype="text/plain">
         <div class="mdui-textfield mdui-textfield-floating-label" id="IDfield">
           <label class="mdui-textfield-label">UID</label>
-          <input class="mdui-textfield-input" name="uid" type="text" pattern="^[0-9]*$" maxlength="11" required />
-          <div class="mdui-textfield-error">UID格式错误</div>
+          <input class="mdui-textfield-input" id="uid" name="uid" type="text" />
+          <div class="mdui-textfield-error" id="errorInfo"></div>
         </div>
         <div class="mdui-btn-icon mdui-ripple" id="submit"><i class="mdui-icon material-icons">&#xe31b;</i></div>
       </form>

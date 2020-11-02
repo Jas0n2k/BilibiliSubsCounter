@@ -15,26 +15,6 @@
   <meta content="telephone=no" name="format-detection" />
   <meta content="email=no" name="format-detection" />
   <script src="./js/odometer.min.js"></script>
-  <script>
-    var isInit = true;
-    const showFansCount = function (json) {
-      elFans.innerHTML = json.data.follower
-      const changeIcon = function () {
-        icon = document.createElement('link');
-        icon.href = elAvatar.src;
-        icon.rel = "apple-touch-icon";
-        icon.sizes = "114x114";
-        document.getElementsByTagName('head')[0].appendChild(icon);
-      }
-      if (isInit) {
-        elAvatar.src = json.data.card.face.replace(/^http:/, 'https:')
-        elName.innerHTML = json.data.card.name;
-        isInit = false
-        changeIcon();
-      }
-    }
-  </script>
-  <script src="./js/UIDquery.js"></script>
   <link rel="stylesheet" href="./css/odometer-theme-default.css" />
   <link rel="stylesheet" href="./css/counter.css" />
 </head>
@@ -55,7 +35,27 @@
   <div id="block2">
     <div id="fans" class="myOdometer"></div>
   </div>
+  <script src="./js/UIDquery.js"></script>
   <div id="script"></div>
+  <script>
+    isInit = true;
+    elFans = document.getElementById('fans')
+    function showFansCount(json) {
+      elFans.innerHTML = json.data.follower
+      if (isInit) {
+        elName = document.getElementById('name');
+        elAvatar = document.getElementById('avatar');
+        elAvatar.src = json.data.card.face.replace(/^http:/, 'https:')
+        elName.innerHTML = json.data.card.name;
+        icon = document.createElement('link');
+        icon.href = elAvatar.src;
+        icon.rel = "apple-touch-icon";
+        icon.sizes = "114x114";
+        document.getElementsByTagName('head')[0].appendChild(icon);
+        isInit = false
+      }
+    }
+  </script>
 </body>
 
 </html>
