@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Bilibili Fans Counter</title>
+  <title></title>
   <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -39,14 +39,17 @@
   <div id="script"></div>
   <script>
     isInit = true;
-    elFans = document.getElementById('fans')
+    elFans = document.getElementById('fans');
     function showFansCount(json) {
       elFans.innerHTML = json.data.follower
       if (isInit) {
         elName = document.getElementById('name');
         elAvatar = document.getElementById('avatar');
+
         elAvatar.src = json.data.card.face.replace(/^http:/, 'https:')
         elName.innerHTML = json.data.card.name;
+        document.title = json.data.card.name + "的实时粉丝计数器 - Bilibili SubsCounter"
+
         icon = document.createElement('link');
         icon.href = elAvatar.src;
         icon.rel = "apple-touch-icon";
