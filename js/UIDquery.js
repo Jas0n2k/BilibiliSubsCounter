@@ -1,4 +1,3 @@
-var userID, duration = 3000;
 (function () {
     let handleURL = new URLSearchParams(window.location.search)
     if (handleURL.has('uid')) {
@@ -17,17 +16,8 @@ var userID, duration = 3000;
     }
 })();
 
-window.onload = function () {
-    elScript = document.getElementById('script')
-    const appendScript = function () {
-        let url = "https://jsonp.afeld.me/?callback=showFansCount&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Fweb-interface%2Fcard%3Fmid%3D" + userID + '&spam=' + Number(new Date)
-        let elScriptChild = document.createElement('script')
-        elScriptChild.setAttribute('src', url)
-        elScriptChild.setAttribute('type', "text/javascript")
-        elScriptChild.setAttribute('referrerpolicy', "no-referrer")
-        elScript.appendChild(elScriptChild)
-    }
-
+var userID, duration = 3000;
+$(function () {
     const subodometer = document.querySelector(".myOdometer");
     const odometer = new Odometer({
         el: subodometer,
@@ -35,10 +25,32 @@ window.onload = function () {
         theme: 'default',
         duration: 200
     })
+    var $elScript = $('#script')
+    //var url = "https://jsonp.afeld.me/?callback=showFansCount&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Fweb-interface%2Fcard%3Fmid%3D" + userID + '&spam=' + Number(new Date)
+    var url2 = "https://api.codetabs.com/v1/proxy/?quest=api.bilibili.com/x/web-interface/card?mid=" + userID + '&spam=' + Number(new Date)
+    const appendScript = function () {
+        let elScriptChild = document.createElement('script')
+        elScriptChild.setAttribute('src', url)
+        elScriptChild.setAttribute('type', "text/javascript")
+        elScriptChild.setAttribute('referrerpolicy', "no-referrer")
+        elScript.appendChild(elScriptChild)
+    }
+    const appendScript2 = function() {
+        $.getJSON(url2, function(e){
+        console.log(e)
+        $('body').append("<script id='appendData'>showFansCount("+JSON.stringify(e)+")</script>")
+    })}
 
-    appendScript();
-    window.setInterval(function () {
-        elScript.removeChild(elScript.childNodes[0])
-        appendScript()
+    appendScript2();
+    setInterval(function () {
+        $("#appendData").remove();
+        appendScript2();
     }, duration);
+
+    //appendScript();
+    //window.setInterval(function () {
+    //    elScript.removeChild(elScript.childNodes[0])
+    //    appendScript()
+    //}, duration);
 }
+)
