@@ -1,22 +1,22 @@
-(function () {
-    let handleURL = new URLSearchParams(window.location.search)
-    if (handleURL.has('uid')) {
+// (function () {
+//     let handleURL = new URLSearchParams(window.location.search)
+//     if (handleURL.has('uid')) {
+//
+//         if (/[0-9]{1,11}$/.test(handleURL.get('uid'))) {
+//             userID = handleURL.get('uid');
+//         }
+//         else {
+//             window.alert("Param is not legit.");
+//             window.location.href = 'index.html';
+//         }
+//     }
+//     else {
+//         window.alert("No UID.");
+//         window.location.href = 'index.html';
+//     }
+// })();
 
-        if (/[0-9]{1,11}$/.test(handleURL.get('uid'))) {
-            userID = handleURL.get('uid');
-        }
-        else {
-            window.alert("Param is not legit.");
-            window.location.href = 'index.html';
-        }
-    }
-    else {
-        window.alert("No UID.");
-        window.location.href = 'index.html';
-    }
-})();
-
-var userID, duration = 3000;
+let userID, duration = 3000;
 $(function () {
     const subodometer = document.querySelector(".myOdometer");
     const odometer = new Odometer({
@@ -52,5 +52,5 @@ $(function () {
     //    elScript.removeChild(elScript.childNodes[0])
     //    appendScript()
     //}, duration);
-}
-)
+})
+

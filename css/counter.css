@@ -1,145 +1,158 @@
 @font-face {
-    font-family: 'NotoSans-B';
-    src: url("../fonts/NotoSans-Bold.ttf");
-  }
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Open Sans"), local("OpenSans-Normal"),
+    url("//lib.baomitu.com/fonts/open-sans/open-sans-regular.ttf") format("truetype")
+}
 
-  html,
-  body {
-    margin: 0;
-    font-family: 'NotoSans-B';
-    display: block;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #ffffff;
-  }
+@font-face {
+    font-family: "Noto Sans SC";
+    font-style: normal;
+    src: local("Noto Sans SC"), local("NotoSans SC-Normal"),
+    url("//lib.baomitu.com/fonts/noto-sans-sc/noto-sans-sc-regular.ttf") format("truetype")
+}
 
-  #block1 {
+html,
+body {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
-    height: 50%;
-  }
+    margin: 0;
+    font-family: "Noto Sans SC", sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
 
-  #logobar {
-    margin: 0 auto 3vh;
-    width: 100%;
-    box-shadow: 0 1px 15px grey;
+.title-bar {
+    position: relative;
+    top: 0;
+    margin-bottom: 2vh;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    height: 7vh;
     display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-  }
+    overflow: hidden;
+    cursor: pointer;
+}
 
-  #logo {
+.title-bar-logo {
+    text-align: center;
+    z-index: 1;
+    height: 65%;
+    transition: transform .3s ease-out;
+}
+
+.title-bar-logo > svg {
     height: 100%;
+    fill: #23ADE5;
+}
+
+.title-bar:hover > .title-bar-logo {
+    transform: translateX(-80%);
+}
+
+.title-bar-text {
+    color: #23ADE5;
+    font-family: "Noto Sans SC", sans-serif;
+    font-weight: bold;
+    font-size: 2vh;
+    white-space: nowrap;
+    position: absolute;
+    left: 47%;
+    opacity: 0;
+    transition: opacity .3s ease-out;
+    user-select: none;
+}
+
+.title-bar:hover > .title-bar-text {
+    opacity: 1;
+}
+
+.creator-info {
     display: flex;
-    align-items: center;
-  }
-
-  #logo img {
-    height: 70%;
-    width: auto;
-  }
-
-  #up_infor {
-    display: flex;
-    align-items: center;
-  }
-
-  #avatar {
-    border-radius: 50%;
-    border: 2px solid black;
-    max-height: 100%;
-    flex: none;
-  }
-
-  #name {
-    color: #000000;
-    font-size: 15vmin;
-    flex: none;
-  }
-
-  #block2 {
-    display: flex;
-    justify-content: center;
-    height: 50%;
-  }
-
-  #fans {
-    color: #000000;
     flex-wrap: nowrap;
-    font-size: 22vmin;
-  }
+    justify-content: center;
+    align-items: center;
+    padding: 0 10vw;
+    margin-bottom: 3vh;
+}
 
-  @media screen and (orientation: landscape) {
+.creator-avatar {
+    border-radius: 50%;
+    height: 12vh;
+    width: 12vh;
+    border: rgba(0, 0, 0, .5) 2px solid;
+    flex: none;
+    overflow: hidden;
+    background: transparent;
+    flex-shrink: 0;
+}
 
-    #logobar {
-      height: 15vh;
+.creator-avatar > img {
+    height: 105%;
+    width: 105%;
+}
+
+.flex-gap {
+    flex-basis: 3vw;
+}
+
+.creator-nickname {
+    font-family: "Noto Sans SC", sans-serif;
+    font-size: 4vh;
+    font-weight: 700;
+    color: #000000;
+}
+
+
+.subs-counter {
+    border: black 1px solid;
+    height: 20vh;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.subs-counter > span {
+    font-family: "Open Sans", sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+}
+
+
+@media screen and (orientation: portrait) {
+    .creator-info {
+        padding: 1vh 0;
+        flex-direction: column;
     }
 
-    #up_infor {
-      flex-direction: row;
-      flex: none;
-      justify-content: center;
-      height: 30vh;
+    .flex-gap {
+        flex-basis: 1vh;
     }
-
-    #avatar {
-      height: 80%;
-    }
-
-    #space {
-      width: 3%;
-      flex: none;
-    }
-
-  }
-
-  @media screen and (orientation: portrait) {
-    #logobar {
-      height: 10vh;
-    }
-
-    #up_infor {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #avatar {
-      width: 20%;
-    }
-
-    #space {
-      width: 0;
-      height: 0;
-    }
-  }
+}
 
 
-  @media (prefers-color-scheme: dark) {
-
+@media (prefers-color-scheme: dark) {
     html,
     body {
-      background-color: #121212;
+        background: black;
     }
 
-    #name {
-      color: #ffffff;
+    .title-bar {
+        box-shadow: 0 3px 6px rgba(255, 255, 255, .16), 0 3px 6px rgba(255, 255, 255, 0.23);
     }
 
-    #fans {
-      color: #ffffff;
+    .creator-avatar {
+        border: 2px solid rgba(255, 255, 255, .5);
+        filter: brightness(80%);
     }
 
-    #logobar {
-      background-color: #000000;
-      box-shadow: 0 2px 25px dimgray;
+    .creator-nickname, .subs-counter {
+        color: #FFFFFF;
     }
 
-    #avatar {
-      border: 2px solid white;
-      filter: brightness(80%);
-    }
-  }
-  #script {
-    display: none;
-  }
+}
