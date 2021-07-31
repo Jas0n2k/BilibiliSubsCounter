@@ -13,8 +13,7 @@
     <meta name="apple-mobile-web-app-title" content="Bilibili Counter">
     <meta content="telephone=no" name="format-detection"/>
     <meta content="email=no" name="format-detection"/>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-sc_chinese-simplified@1.44.9/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.css">
     <link rel="stylesheet" href="./css/counter.css"/>
 </head>
 
@@ -61,12 +60,38 @@
     <div class="title-bar-text">粉丝实时计数器</div>
 </div>
 <div class="creator-info">
-    <div class="creator-avatar"><img src="" alt=""></div>
+    <div class="creator-avatar"><img src="" alt="" id="c-avatar"></div>
     <div class="flex-gap"></div>
-    <div class="creator-nickname">Zabivaka</div>
+    <div class="creator-nickname" id="c-nickname"></div>
 </div>
 <div class="subs-counter">
-    <span id="odometer">1111</span>
+    <span class="loading odometer" id="odometer"></span>
+</div>
+<div class="overlay hidden">
+    <div class="over-lay-title">
+        <span>已暂停更新</span>
+    </div>
+    <div class="overlay-settings">
+        <div class="settings-header">
+            <div class="settings-title">设置</div>
+            <hr/>
+        </div>
+        <div class="settings-item settings-switch">
+            <label for="updateToggle">自动更新</label>
+            <div class="toggle">
+                <input type="checkbox" class="settings-toggle" id="updateToggle" checked>
+                <label for="updateToggle"></label>
+                <div class="toggle-status"></div>
+            </div>
+        </div>
+        <hr/>
+        <div class="settings-footer">
+
+        </div>
+    </div>
+    <div class="overlay-errors">
+
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/odometer@0.4.8/odometer.min.js"></script>
 <script src="./js/counter.js"></script>

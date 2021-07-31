@@ -1,9 +1,12 @@
-@font-face {
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: bold;
-    src: local("Open Sans"), local("OpenSans-Normal"),
-    url("//lib.baomitu.com/fonts/open-sans/open-sans-regular.ttf") format("truetype")
+:root {
+    --theme-color: #23ADE5;
+    --bg-color: #FFFFFF;
+    --toggle-color: rgba(130,130,130,.6);
+    --button-color: #EEEEEE;
+    --button-active-color: #FFFFFF;
+    --font-color: #000000;
+    --loading-gray: #EBEBEB;
+    --overlay-bg-color: rgba(0, 0, 0, .2)
 }
 
 @font-face {
@@ -21,15 +24,21 @@ body {
     font-family: "Noto Sans SC", sans-serif;
     height: 100vh;
     overflow: hidden;
-    background-color: #FFFFFF;
+    background-color: var(--bg-color);
+}
+
+body > * {
+    flex-shrink: 0;
 }
 
 .title-bar {
     position: relative;
     top: 0;
-    margin-bottom: 2vh;
+    margin-bottom: calc(30px + 2vh);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     height: 7vh;
+    max-height: 200px;
+    min-height: 100px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -47,7 +56,7 @@ body {
 
 .title-bar-logo > svg {
     height: 100%;
-    fill: #23ADE5;
+    fill: var(--theme-color);
 }
 
 .title-bar:hover > .title-bar-logo {
@@ -58,12 +67,12 @@ body {
     color: #23ADE5;
     font-family: "Noto Sans SC", sans-serif;
     font-weight: bold;
-    font-size: 2vh;
+    font-size: calc(16px + 1.5vh);
     white-space: nowrap;
     position: absolute;
-    left: 47%;
+    left: 49%;
     opacity: 0;
-    transition: opacity .3s ease-out;
+    transition: opacity .4s ease-out;
     user-select: none;
 }
 
@@ -77,18 +86,21 @@ body {
     justify-content: center;
     align-items: center;
     padding: 0 10vw;
-    margin-bottom: 3vh;
+    margin-bottom: calc(20px + 1vh);
 }
 
 .creator-avatar {
     border-radius: 50%;
-    height: 12vh;
-    width: 12vh;
+    height: calc(160px + 10vh);
+    width: calc(160px + 10vh);
     border: rgba(0, 0, 0, .5) 2px solid;
     flex: none;
     overflow: hidden;
     background: transparent;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .creator-avatar > img {
@@ -96,31 +108,263 @@ body {
     width: 105%;
 }
 
+.creator-avatar > img:before {
+    content: "";
+    display: block;
+    height: 200%;
+    width: 200%;
+}
+
+
 .flex-gap {
     flex-basis: 3vw;
 }
 
 .creator-nickname {
     font-family: "Noto Sans SC", sans-serif;
-    font-size: 4vh;
+    font-size: calc(24px + 5vw);
     font-weight: 700;
-    color: #000000;
+    color: var(--font-color);
 }
 
-
 .subs-counter {
-    border: black 1px solid;
-    height: 20vh;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    cursor: default;
+    user-select: none;
 }
 
 .subs-counter > span {
-    font-family: "Open Sans", sans-serif;
-    font-size: 6rem;
+    font-size: 12vw;
     font-weight: 700;
+    min-height: 80px;
+    color: var(--font-color);
+}
+
+.creator-avatar > img[src=""], .creator-nickname:empty, .subs-counter > span.loading {
+    background-color: var(--loading-gray);
+    background: linear-gradient(
+            110deg,
+            rgba(255, 255, 255, 0) 42%,
+            rgba(255, 255, 255, .4) 50%,
+            rgba(255, 255, 255, 0) 58%
+    ) var(--loading-gray);
+    background-size: 140% 100%;
+    background-position-x: 220%;
+    animation: 1.5s loading ease-in-out infinite;
+    border-radius: 4px;
+}
+
+.creator-avatar > img[src=""] {
+    min-height: 110%;
+    min-width: 110%;
+}
+
+.creator-nickname:empty {
+    margin-top: 2vh;
+    height: 8vh;
+    min-width: 20vw;
+}
+
+.subs-counter > span.loading {
+    height: 12vw;
+    min-width: 80vw;
+    overflow: hidden;
+}
+
+.subs-counter > span.loading:before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.overlay, .overlay * {
+    user-select: none;
+}
+
+.overlay {
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--overlay-bg-color);
+    backdrop-filter: blur(25px);
+    opacity: 1;
+    transition: all .3s ease-out;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.overlay:hover{*/
+/*    backdrop-filter: blur(0px);*/
+/*    opacity: 0;*/
+/*}*/
+
+.over-lay-title {
+    color: var(--font-color);
+    font-size: calc(16px + 6vw);
+    font-family: "Noto Sans SC", sans-serif;
+    font-weight: bold;
+}
+
+.overlay-settings {
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 60%;
+    min-width: 280px;
+    width: 40%;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 1rem;
+    padding: 1rem;
+    color: var(--font-color)
+}
+
+.overlay-settings hr {
+    border: none;
+    border-bottom: var(--font-color) 1px solid;
+    height: 1px;
+    width: 100%
+}
+
+.overlay-settings input[type=checkbox] {
+    display: none;
+}
+
+.settings-title {
+    text-align: left;
+    font-size: calc(10px + 2vw);
+    font-weight: 500;
+}
+
+.settings-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 20px
+}
+
+.settings-switch{
+    justify-content: space-between;
+}
+
+.settings-switch > label{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.toggle {
+    display: inline-flex;
+    align-items: center;
+}
+
+.settings-toggle ~ .toggle-status:before {
+    content: "关闭";
+    display: block;
+    font-size: 18px;
+    line-height: 28px;
+    vertical-align: top;
+    font-weight: 300;
+    opacity: 0.6;
+    transition: opacity 0.25s;
+}
+
+.settings-toggle:checked ~ .toggle-status:before {
+    content: "开启";
+    opacity: 0.9;
+
+}
+
+.settings-toggle + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    padding: 2px;
+    width: 60px;
+    height: 30px;
+    background-color: var(--toggle-color);
+    border-radius: 20px;
+    transition: background 0.25s;
+    margin: 2px 10px;
+    overflow: hidden;
+}
+
+.settings-toggle + label:before,
+.settings-toggle + label:after {
+    display: block;
+    position: absolute;
+    content: "";
+}
+
+.settings-toggle + label:before {
+    top: 3px;
+    left: 3px;
+    bottom: 3px;
+    right: 3px;
+    background-color: var(--toggle-color);
+    border-radius: 26px;
+    transition: background 0.25s;
+}
+
+.settings-toggle + label:after {
+    top: 4px;
+    left: 4px;
+    bottom: 4px;
+    width: 35px;
+    background-color: var(--button-color);
+    border-radius: 26px;
+    transition: margin 0.25s, background 0.25s;
+}
+
+.settings-toggle:checked + label {
+    background-color: var(--theme-color);
+}
+
+.settings-toggle:checked + label:before {
+    background-color: #1565C0;
+}
+
+.settings-toggle:checked + label:after {
+    margin-left: 21px;
+    background-color: var(--button-active-color);
+}
+
+.settings-toggle:checked ~ .toggle-off,
+.settings-toggle:not(:checked) ~ .toggle-on {
+    opacity: 0;
+}
+
+.settings-toggle:checked ~ .toggle-on,
+.settings-toggle:not(:checked) ~ .toggle-off {
+    opacity: 0.5;
+}
+
+.settings-toggle:checked ~ .toggle-on {
+    opacity: 0.9;
+}
+
+.settings-footer {
+    display: flex;
+    position: sticky;
+    bottom:0;
+    flex-flow: column nowrap;
+}
+
+@keyframes loading {
+    to {
+        background-position-x: -120%;
+    }
 }
 
 
@@ -133,13 +377,26 @@ body {
     .flex-gap {
         flex-basis: 1vh;
     }
+
+    .creator-nickname {
+        font-size: calc(16px + 8vw);
+    }
+
+    .creator-nickname:empty {
+        min-width: 60vw;
+    }
 }
 
 
 @media (prefers-color-scheme: dark) {
-    html,
-    body {
-        background: black;
+    :root {
+        --bg-color: #000000;
+        --font-color: #FFFFFF;
+        --loading-gray: #232323;
+        --toggle-color: #212121;
+        --button-color: #757575;
+        --button-active-color: #E0E0E0;
+        --overlay-bg-color: rgba(0, 0, 0, .15)
     }
 
     .title-bar {
@@ -147,12 +404,7 @@ body {
     }
 
     .creator-avatar {
-        border: 2px solid rgba(255, 255, 255, .5);
+        border: 2px solid rgba(255, 255, 255, .3);
         filter: brightness(80%);
     }
-
-    .creator-nickname, .subs-counter {
-        color: #FFFFFF;
-    }
-
 }
