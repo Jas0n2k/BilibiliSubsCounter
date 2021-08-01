@@ -1,19 +1,25 @@
 :root {
     --theme-color: #23ADE5;
     --bg-color: #FFFFFF;
-    --toggle-color: rgba(130,130,130,.6);
+    --toggle-color: rgba(130, 130, 130, .6);
     --button-color: #EEEEEE;
     --button-active-color: #FFFFFF;
     --font-color: #000000;
     --loading-gray: #EBEBEB;
-    --overlay-bg-color: rgba(0, 0, 0, .2)
+    --overlay-bg-color: rgba(0, 0, 0, .4);
+    --settings-item-hover: rgba(31, 31, 31, .3);
+    --overlay-settings:rgba(255,255,255,.5)
+}
+* {
+    box-sizing: border-box;
 }
 
-@font-face {
-    font-family: "Noto Sans SC";
-    font-style: normal;
-    src: local("Noto Sans SC"), local("NotoSans SC-Normal"),
-    url("//lib.baomitu.com/fonts/noto-sans-sc/noto-sans-sc-regular.ttf") format("truetype")
+a {
+    text-decoration: none;
+}
+
+input[type=checkbox] {
+    display: none;
 }
 
 html,
@@ -37,8 +43,8 @@ body > * {
     margin-bottom: calc(30px + 2vh);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     height: 7vh;
-    max-height: 200px;
     min-height: 100px;
+    max-height: 200px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -47,20 +53,25 @@ body > * {
     cursor: pointer;
 }
 
+
 .title-bar-logo {
     text-align: center;
     z-index: 1;
     height: 65%;
-    transition: transform .3s ease-out;
+    transition: transform .6s ease-out;
 }
+
 
 .title-bar-logo > svg {
     height: 100%;
     fill: var(--theme-color);
 }
 
+
+
 .title-bar:hover > .title-bar-logo {
-    transform: translateX(-80%);
+    transform: translateX(-60%);
+    transition: transform .3s ease-out;
 }
 
 .title-bar-text {
@@ -70,14 +81,17 @@ body > * {
     font-size: calc(16px + 1.5vh);
     white-space: nowrap;
     position: absolute;
-    left: 49%;
+    left: 50%;
     opacity: 0;
-    transition: opacity .4s ease-out;
+    transition: transform .6s ease-out, opacity .4s ease-out;
     user-select: none;
+    transform: translateX(-20%);
 }
 
-.title-bar:hover > .title-bar-text {
+.title-bar:hover > .title-bar-text, .title-bar:active > .title-bar-text, .title-bar:focus > .title-bar-text {
     opacity: 1;
+    transform: translateX(0);
+    transition: transform .3s ease-out, opacity .2s ease-out .1s;
 }
 
 .creator-info {
@@ -198,36 +212,54 @@ body > * {
     left: 0;
     right: 0;
     background: var(--overlay-bg-color);
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(15px);
     opacity: 1;
-    transition: all .3s ease-out;
+    transition: backdrop-filter .3s ease-out, opacity .3s ease-out, height .0s linear;
     justify-content: center;
     align-items: center;
 }
 
-/*.overlay:hover{*/
-/*    backdrop-filter: blur(0px);*/
-/*    opacity: 0;*/
-/*}*/
+#overlayCB:checked ~ .overlay{
+    backdrop-filter: blur(0);
+    opacity: 0;
+    height: 0;
+    transition: backdrop-filter .3s ease-out, opacity .3s ease-out, height .0s linear .3s;
+}
 
-.over-lay-title {
+.overlay-copyright {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     color: var(--font-color);
-    font-size: calc(16px + 6vw);
+    padding: 10px 20px;
+}
+
+.overlay-title {
+    color: var(--font-color);
+    font-size: calc(16px + 3vw);
     font-family: "Noto Sans SC", sans-serif;
     font-weight: bold;
+    margin-bottom: 3vh;
 }
 
 .overlay-settings {
     overflow: hidden;
     display: flex;
     flex-flow: column nowrap;
-    height: 60%;
-    min-width: 280px;
+    max-height: 60%;
+    min-width: 350px;
     width: 40%;
-    background: rgba(255, 255, 255, .5);
+    background: var(--overlay-settings);
     border-radius: 1rem;
     padding: 1rem;
-    color: var(--font-color)
+    color: var(--font-color);
+    transition: all .2s ease-out;
+}
+
+#overlayCB:checked ~ .overlay > .overlay-settings{
+    transform: scale(0.3);
+    opacity: 0;
+    transition: all .2s ease-out;
 }
 
 .overlay-settings hr {
@@ -237,30 +269,62 @@ body > * {
     width: 100%
 }
 
-.overlay-settings input[type=checkbox] {
-    display: none;
+
+.settings-header {
+    position: sticky;
+    top: 0;
+
+}
+
+.settings-header > hr {
+    margin-bottom: 0 !important;
 }
 
 .settings-title {
-    text-align: left;
-    font-size: calc(10px + 2vw);
+    text-align: center;
+    font-size: calc(10px + 1vh + 1vw);
     font-weight: 500;
 }
+
+.settings-body {
+    display: flex;
+    flex-flow: column nowrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-grow: 1;
+    padding: 0.3rem 0;
+}
+
+.settings-body::-webkit-scrollbar {
+    display: none;
+}
+
 
 .settings-item {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 20px
+    padding: 10px;
+    width: 100%;
+    color: var(--font-color);
 }
 
-.settings-switch{
+.settings-item:hover, .settings-btn:hover {
+    background: var(--settings-item-hover);
+}
+
+.settings-item:hover {
+    border-radius: 5px;
+}
+
+.settings-switch {
     justify-content: space-between;
 }
 
-.settings-switch > label{
+.settings-switch > label {
     font-size: 1.3rem;
     font-weight: 500;
+    flex-shrink: 0;
 }
 
 .toggle {
@@ -269,7 +333,7 @@ body > * {
 }
 
 .settings-toggle ~ .toggle-status:before {
-    content: "关闭";
+    content: "关";
     display: block;
     font-size: 18px;
     line-height: 28px;
@@ -280,7 +344,7 @@ body > * {
 }
 
 .settings-toggle:checked ~ .toggle-status:before {
-    content: "开启";
+    content: "开";
     opacity: 0.9;
 
 }
@@ -291,10 +355,10 @@ body > * {
     cursor: pointer;
     outline: none;
     padding: 2px;
-    width: 60px;
+    width: 52px;
     height: 30px;
     background-color: var(--toggle-color);
-    border-radius: 20px;
+    border-radius: 18px;
     transition: background 0.25s;
     margin: 2px 10px;
     overflow: hidden;
@@ -308,12 +372,12 @@ body > * {
 }
 
 .settings-toggle + label:before {
-    top: 3px;
-    left: 3px;
-    bottom: 3px;
-    right: 3px;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
     background-color: var(--toggle-color);
-    border-radius: 26px;
+    border-radius: 24px;
     transition: background 0.25s;
 }
 
@@ -321,9 +385,9 @@ body > * {
     top: 4px;
     left: 4px;
     bottom: 4px;
-    width: 35px;
+    width: 30px;
     background-color: var(--button-color);
-    border-radius: 26px;
+    border-radius: 36px;
     transition: margin 0.25s, background 0.25s;
 }
 
@@ -336,7 +400,7 @@ body > * {
 }
 
 .settings-toggle:checked + label:after {
-    margin-left: 21px;
+    margin-left: 14px;
     background-color: var(--button-active-color);
 }
 
@@ -357,13 +421,73 @@ body > * {
 .settings-footer {
     display: flex;
     position: sticky;
-    bottom:0;
+    bottom: 0;
     flex-flow: column nowrap;
+    align-items: center;
 }
+
+.settings-footer > hr {
+    margin-top: 0 !important;
+}
+
+.settings-redirect {
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.settings-redirect:after {
+    content: "";
+    border-top: var(--font-color) 2px solid;
+    border-right: var(--font-color) 2px solid;
+    border-radius: 2px;
+    display: block;
+    height: 0.6rem;
+    width: 0.6rem;
+    transform: rotate(45deg);
+}
+
+.settings-btn {
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 2px 20px 3px;
+    text-align: center;
+    cursor: pointer;
+    border: var(--font-color) 1px solid;
+    border-radius: 12px;
+    max-width: 180px;
+    min-width: 90px;
+    margin: 10px 0;
+}
+
+.no-motion {
+    transition: none !important;
+}
+
 
 @keyframes loading {
     to {
         background-position-x: -120%;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .title-bar {
+        height: 75px;
+    }
+
+    .title-bar-logo {
+        height: 50%;
+    }
+
+    .title-bar:hover > .title-bar-logo {
+        transform: translateX(-85%);
+    }
+
+    .title-bar-text {
+        left: 43%;
     }
 }
 
@@ -396,7 +520,9 @@ body > * {
         --toggle-color: #212121;
         --button-color: #757575;
         --button-active-color: #E0E0E0;
-        --overlay-bg-color: rgba(0, 0, 0, .15)
+        --overlay-bg-color: rgba(0, 0, 0, .4);
+        --settings-item-hover: rgba(171, 171, 171, .3);
+        --overlay-settings:rgba(100,100,100,.4)
     }
 
     .title-bar {

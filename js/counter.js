@@ -70,6 +70,10 @@ window.onload = () => {
     const avatar = document.getElementById("c-avatar");
     const nickname = document.getElementById("c-nickname");
     const odometer = document.getElementById("odometer");
+    const titleBar = document.getElementById("titleBar");
+    const overlayCB = document.getElementById("overlayCB")
+    titleBar.addEventListener("click", () => overlayCB.checked = false)
+
     let updateInterval = 3000;
     let retryTimes = 2;
     let userID = 262453663;
@@ -94,16 +98,24 @@ window.onload = () => {
     })
 
     const updatePeriodically = () => {
+        console.log("running!")
         if (flag.keepUpdating) {
             getInfoWithRetry(userID, retryTimes)
                 .then(res => {
                     odometer.innerText = res.follower;
                     setTimeout(updatePeriodically, updateInterval)
                 })
-                .catch(e => console.log(e))
+                .catch(e => {
+                    console.log(e);
+                    flag.keepUpdating = false;
+                    updatePeriodically();
+                })
+        }
+        else{
+            updatePeriodically();
         }
     }
-    //
+
     // init(userID, retryTimes)
     //     .then(() => setTimeout(() => updatePeriodically(userID, retryTimes, flag), updateInterval))
     //     .catch(e => {
