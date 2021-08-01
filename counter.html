@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
-    <title></title>
+    <title>Bilibili 实时粉丝计数器</title>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -70,8 +70,8 @@
 <div class="subs-counter">
     <span class="loading odometer" id="odometer"></span>
 </div>
-<input type="checkbox" id="overlayCB">
-<div class="overlay hidden">
+<input type="checkbox" id="overlayCB" checked>
+<div class="overlay">
     <div class="overlay-copyright">Made by Jas0n2K in 2021. Version 1.0</div>
     <div class="overlay-title">
         <span>已暂停更新</span>
@@ -101,7 +101,7 @@
             <div class="settings-item settings-switch">
                 <label for="followSystem">主题跟随系统</label>
                 <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="followSystem">
+                    <input type="checkbox" class="settings-toggle" id="followSystem" checked disabled>
                     <label for="followSystem"></label>
                     <div class="toggle-status"></div>
                 </div>
@@ -109,7 +109,7 @@
             <div class="settings-item settings-switch">
                 <label for="darkMode">夜间模式</label>
                 <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="darkMode">
+                    <input type="checkbox" class="settings-toggle" id="darkMode" disabled>
                     <label for="darkMode"></label>
                     <div class="toggle-status"></div>
                 </div>
@@ -117,8 +117,8 @@
         </div>
         <div class="settings-footer">
             <hr/>
-            <a class="settings-item settings-redirect">关于作者</a>
-            <a class="settings-item settings-redirect" href="https://github.com/Jas0n2k/BilibiliSubsCounter/blob/master/LICENSE">许可协议</a>
+            <a class="settings-item settings-redirect" target="_blank" href="https://jas0n2k.github.io/">关于作者</a>
+            <a class="settings-item settings-redirect" target="_blank" href="https://github.com/Jas0n2k/BilibiliSubsCounter/blob/master/LICENSE">许可协议</a>
             <label id="closeOverlay" class="settings-btn" for="overlayCB">关闭设置</label>
         </div>
     </div>
