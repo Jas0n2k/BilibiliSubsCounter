@@ -23,6 +23,16 @@ input[type=checkbox] {
     display: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:focus {
+    outline: none;
+}
+
 html,
 body {
     display: flex;
@@ -238,24 +248,15 @@ body.no-motion .creator-avatar > img[src=""], body.no-motion .creator-nickname:e
     align-items: center;
 }
 
-body.no-motion .overlay {
-    background: gray;
-}
 
-#overlayCB:checked ~ .overlay {
+#overlayInitDialogCB:checked ~ .init-dialog-overlay,
+#overlaySettingsCB:checked ~ .settings-overlay {
     backdrop-filter: blur(0);
     opacity: 0;
     height: 0;
     transition: backdrop-filter .3s ease-out, opacity .3s ease-out, height .0s linear .3s;
 }
 
-body.no-motion .overlay,
-body.no-motion #overlayCB:checked ~ .overlay,
-body.no-motion #overlayCB:checked ~ .overlay > .overlay-settings,
-body.no-motion .overlay-settings
-{
-    transition: none;
-}
 
 .overlay-copyright {
     position: absolute;
@@ -273,51 +274,55 @@ body.no-motion .overlay-settings
     margin-bottom: 3vh;
 }
 
-.overlay-settings {
+.overlay-container {
     overflow: hidden;
     display: flex;
     flex-flow: column nowrap;
-    max-height: 60%;
-    min-width: 350px;
-    width: 40%;
     background: var(--overlay-settings);
     border-radius: 1rem;
     padding: 1rem;
     color: var(--font-color);
     transition: all .2s ease-out;
+    min-width: 350px;
+    min-height: 100px;
 }
 
-#overlayCB:checked ~ .overlay > .overlay-settings {
-    transform: scale(0.3);
-    opacity: 0;
-    transition: all .2s ease-out;
-}
-
-.overlay-settings hr {
+.overlay-container hr {
     border: none;
     border-bottom: var(--font-color) 1px solid;
     height: 1px;
     width: 100%
 }
 
-
-.settings-header {
-    position: sticky;
-    top: 0;
-
+.overlay-container .settings-container {
+    max-height: 60%;
+    width: 40%;
 }
 
-.settings-header > hr {
+#overlayInitDialogCB:checked ~ .init-dialog-overlay > .overlay-container,
+#overlaySettingsCB:checked ~ .settings-overlay > .overlay-container {
+    transform: scale(0.3);
+    opacity: 0;
+    transition: all .2s ease-out;
+}
+
+
+.container-header {
+    position: sticky;
+    top: 0;
+}
+
+.container-header > hr {
     margin-bottom: 0 !important;
 }
 
-.settings-title {
+.container-title {
     text-align: center;
     font-size: calc(10px + 1vh + 1vw);
     font-weight: 500;
 }
 
-.settings-body {
+.container-body {
     display: flex;
     flex-flow: column nowrap;
     overflow-y: scroll;
@@ -326,12 +331,12 @@ body.no-motion .overlay-settings
     padding: 0.3rem 0;
 }
 
-.settings-body::-webkit-scrollbar {
+.container-body::-webkit-scrollbar {
     display: none;
 }
 
 
-.settings-item {
+.container-item {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -340,30 +345,30 @@ body.no-motion .overlay-settings
     color: var(--font-color);
 }
 
-.settings-item:hover, .settings-btn:hover {
+.container-item:hover, .container-btn:hover {
     background: var(--settings-item-hover);
 }
 
-.settings-item:hover {
+.container-item:hover {
     border-radius: 5px;
 }
 
-.settings-switch {
+.container-item-switch {
     justify-content: space-between;
 }
 
-.settings-switch > label {
+.container-item-switch > label {
     font-size: 1.3rem;
     font-weight: 500;
     flex-shrink: 0;
 }
 
-.toggle {
+.container-toggle {
     display: inline-flex;
     align-items: center;
 }
 
-.settings-toggle ~ .toggle-status:before {
+.container-toggle ~ .toggle-status:before {
     content: "关";
     display: block;
     font-size: 18px;
@@ -374,13 +379,13 @@ body.no-motion .overlay-settings
     transition: opacity 0.25s;
 }
 
-.settings-toggle:checked ~ .toggle-status:before {
+.container-toggle:checked ~ .toggle-status:before {
     content: "开";
     opacity: 0.9;
 
 }
 
-.settings-toggle + label {
+.container-toggle + label {
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -395,14 +400,14 @@ body.no-motion .overlay-settings
     overflow: hidden;
 }
 
-.settings-toggle + label:before,
-.settings-toggle + label:after {
+.container-toggle + label:before,
+.container-toggle + label:after {
     display: block;
     position: absolute;
     content: "";
 }
 
-.settings-toggle + label:before {
+.container-toggle + label:before {
     top: 2px;
     left: 2px;
     bottom: 2px;
@@ -412,7 +417,7 @@ body.no-motion .overlay-settings
     transition: background 0.25s;
 }
 
-.settings-toggle + label:after {
+.container-toggle + label:after {
     top: 4px;
     left: 4px;
     bottom: 4px;
@@ -422,34 +427,34 @@ body.no-motion .overlay-settings
     transition: margin 0.25s, background 0.25s;
 }
 
-.settings-toggle:checked + label {
+.container-toggle:checked + label {
     background-color: var(--theme-color);
 }
 
-.settings-toggle:checked + label:before {
+.container-toggle:checked + label:before {
     background-color: #1565C0;
 }
 
-.settings-toggle:checked + label:after {
+.container-toggle:checked + label:after {
     margin-left: 14px;
     background-color: var(--button-active-color);
 }
 
-.settings-toggle:checked ~ .toggle-off,
-.settings-toggle:not(:checked) ~ .toggle-on {
+.container-toggle:checked ~ .toggle-off,
+.container-toggle:not(:checked) ~ .toggle-on {
     opacity: 0;
 }
 
-.settings-toggle:checked ~ .toggle-on,
-.settings-toggle:not(:checked) ~ .toggle-off {
+.container-toggle:checked ~ .toggle-on,
+.container-toggle:not(:checked) ~ .toggle-off {
     opacity: 0.5;
 }
 
-.settings-toggle:checked ~ .toggle-on {
+.container-toggle:checked ~ .toggle-on {
     opacity: 0.9;
 }
 
-.settings-footer {
+.container-footer {
     display: flex;
     position: sticky;
     bottom: 0;
@@ -457,16 +462,16 @@ body.no-motion .overlay-settings
     align-items: center;
 }
 
-.settings-footer > hr {
+.container-footer > hr {
     margin-top: 0 !important;
 }
 
-.settings-redirect {
+.container-item-redirect {
     justify-content: space-between;
     cursor: pointer;
 }
 
-.settings-redirect:after {
+.container-item-redirect:after {
     content: "";
     border-top: var(--font-color) 2px solid;
     border-right: var(--font-color) 2px solid;
@@ -477,25 +482,67 @@ body.no-motion .overlay-settings
     transform: rotate(45deg);
 }
 
-.settings-btn {
+.container-btn {
     white-space: nowrap;
     display: inline-block;
     vertical-align: middle;
     font-weight: 500;
     font-size: 1.1rem;
-    padding: 2px 20px 3px;
+    padding: 6px 20px;
     text-align: center;
     cursor: pointer;
-    border: var(--font-color) 1px solid;
+    border: 1px solid var(--font-color);
     border-radius: 12px;
     max-width: 180px;
     min-width: 90px;
     margin: 10px 0;
 }
 
-.no-motion {
+.container-btn:active {
+    border-color: var(--theme-color);
+}
+
+.container-item-input-text {
+    background: transparent;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+}
+
+.container-item-input-text > label {
+    display: block;
+    color: var(--font-color);
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 2px 0;
+}
+
+
+.container-item-input-text > input {
+    background: transparent;
+    border: 1px solid var(--font-color);
+    border-radius: 5px;
+    margin: 5px 0;
+    width: 100%;
+    color: var(--font-color);
+    height: 2.5rem;
+    font-size: 1rem;
+    padding: 0.6rem 0.5rem;
+}
+
+.container-item-input-text > input:focus-within {
+    border-color: var(--theme-color);
+    border-width: 2px;
+}
+
+
+body.no-motion .overlay {
+    background: gray !important;
+}
+
+body.no-motion .overlay,
+body.no-motion .overlay-container {
     transition: none !important;
-    animation: none !important;
 }
 
 

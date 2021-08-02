@@ -3,21 +3,21 @@
 <head>
     <title>Bilibili 实时粉丝计数器</title>
     <meta charset="UTF-8">
-    <meta name="referrer" content="no-referrer"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Bilibili Counter"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Bilibili Counter">
+    <meta content="no-referrer" name="referrer"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta content="Bilibili Counter" name="application-name"/>
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="Bilibili Counter" name="apple-mobile-web-app-title">
     <meta content="telephone=no" name="format-detection"/>
     <meta content="email=no" name="format-detection"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@4.5.0/index.min.css"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.css"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/counter.css"/>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@4.5.0/index.min.css"
+          rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-default.css"
+          rel="stylesheet">
+    <link href="./css/counter.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -63,70 +63,98 @@
     <div class="title-bar-text">粉丝实时计数器</div>
 </div>
 <div class="creator-info">
-    <div class="creator-avatar"><img src="" alt="" id="c-avatar"></div>
+    <div class="creator-avatar"><img alt="" id="c-avatar" src=""></div>
     <div class="flex-gap"></div>
     <div class="creator-nickname" id="c-nickname"></div>
 </div>
 <div class="subs-counter">
     <span class="loading odometer" id="odometer"></span>
 </div>
-<input type="checkbox" id="overlayCB" checked>
-<div class="overlay">
+<input checked id="overlayInitDialogCB" type="checkbox">
+<input checked id="overlaySettingsCB" type="checkbox">
+<div class="overlay init-dialog-overlay">
+
+    <div class="overlay-container">
+        <div class="container-header">
+            <div class="container-title">欢迎</div>
+            <hr>
+        </div>
+        <div class="container-body">
+            <label class="container-item container-item-switch" for="initAutoUpdateTg">
+                <label>自动更新</label>
+                <div class="container-toggle">
+                    <input checked disabled class="container-toggle" id="initAutoUpdateTg" type="checkbox">
+                    <label for="initAutoUpdateTg"></label>
+                    <div class="toggle-status"></div>
+                </div>
+            </label>
+            <label class="container-item container-item-input-text">
+                <label for="UIDInputBox">填写UID / 粘贴UP主空间地址</label>
+                <input id="UIDInputBox" pattern="\d*" type="text">
+            </label>
+        </div>
+        <div class="container-footer">
+            <hr>
+            <div class="container-btn" id="goBtn">开始使用</div>
+        </div>
+    </div>
     <div class="overlay-copyright">Made by Jas0n2K in 2021. Version 1.0</div>
+</div>
+<div class="overlay settings-overlay">
     <div class="overlay-title">
         <span>已暂停更新</span>
     </div>
-    <div class="overlay-settings">
-        <div class="settings-header">
-            <div class="settings-title">设置</div>
+    <div class="settings-container overlay-container">
+        <div class="container-header">
+            <div class="container-title">设置</div>
             <hr/>
         </div>
-        <div class="settings-body">
-            <div class="settings-item settings-switch">
-                <label for="updateToggle">自动更新</label>
-                <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="updateToggle" checked>
+        <div class="container-body">
+            <label class="container-item container-item-switch" for="updateToggle">
+                <label>自动更新</label>
+                <div class="container-toggle">
+                    <input checked class="container-toggle" id="updateToggle" type="checkbox">
                     <label for="updateToggle"></label>
                     <div class="toggle-status"></div>
                 </div>
-            </div>
-            <div class="settings-item settings-switch">
-                <label for="reduceMotion">减少动画与透明效果</label>
-                <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="reduceMotion">
+            </label>
+            <label class="container-item container-item-switch" for="reduceMotion">
+                <label>减少动画与透明效果</label>
+                <div class="container-toggle">
+                    <input class="container-toggle" id="reduceMotion" type="checkbox">
                     <label for="reduceMotion"></label>
                     <div class="toggle-status"></div>
                 </div>
-            </div>
-            <div class="settings-item settings-switch">
-                <label for="followSystem">主题跟随系统</label>
-                <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="followSystem" checked disabled>
+            </label>
+            <label class="container-item container-item-switch" for="followSystem">
+                <label>主题跟随系统</label>
+                <div class="container-toggle">
+                    <input checked class="container-toggle" disabled id="followSystem" type="checkbox">
                     <label for="followSystem"></label>
                     <div class="toggle-status"></div>
                 </div>
-            </div>
-            <div class="settings-item settings-switch">
-                <label for="darkMode">夜间模式</label>
-                <div class="toggle">
-                    <input type="checkbox" class="settings-toggle" id="darkMode" disabled>
+            </label>
+            <label class="container-item container-item-switch" for="darkMode">
+                <label>夜间模式</label>
+                <div class="container-toggle">
+                    <input class="container-toggle" disabled id="darkMode" type="checkbox">
                     <label for="darkMode"></label>
                     <div class="toggle-status"></div>
                 </div>
-            </div>
+            </label>
         </div>
-        <div class="settings-footer">
+        <div class="container-footer">
             <hr/>
-            <a class="settings-item settings-redirect" target="_blank" href="https://jas0n2k.github.io/">关于作者</a>
-            <a class="settings-item settings-redirect" target="_blank" href="https://github.com/Jas0n2k/BilibiliSubsCounter/blob/master/LICENSE">许可协议</a>
-            <label id="closeOverlay" class="settings-btn" for="overlayCB">关闭设置</label>
+            <a class="container-item container-item-redirect" href="https://jas0n2k.github.io/" target="_blank">关于作者</a>
+            <a class="container-item container-item-redirect" href="https://github.com/Jas0n2k/BilibiliSubsCounter/blob/master/LICENSE"
+               target="_blank">许可协议</a>
+            <label class="container-btn" for="overlaySettingsCB">关闭设置</label>
         </div>
     </div>
-    <div class="overlay-errors">
+    <div class="overlay-copyright">Made by Jas0n2K in 2021. Version 1.0</div>
 
-    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/odometer@0.4.8/odometer.min.js"></script>
-<script src="./js/counter.js"></script>
+<script defer src="./js/counter.js"></script>
 </body>
 </html>
